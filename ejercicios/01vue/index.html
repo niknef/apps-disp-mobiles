@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Primer Desafio Vue3</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main class="texto" v-cloak>
+        <article class="flex flex-col align-center items-center mt-10 gap-6">
+            <h1 class="text-white text-3xl font-bold" v-once>{{title}}</h1>
+            <p class="text-white" :style="{width: widthTexto}">Las películas fantásticas clásicas son un género cinematográfico que combina elementos de la fantasía, la ciencia ficción, el terror y la aventura. Estas películas nos transportan a mundos imaginarios, llenos de magia, criaturas extraordinarias y héroes legendarios. Algunas de las películas fantásticas clásicas internacionales más famosas son: </p>
+        
+            <div>
+                <ol class="flex flex-row gap-8">
+                    <li class="flex-1">
+                        <div class="flex flex-col justify-between max-w-sm min-h-full rounded-lg shadow bg-gray-800 border-gray-700">
+                            <a href="#">
+                                <img class="rounded-t-lg" :src="imgPelicula" :alt="titlePelicula">
+                            </a>
+                            <div class="p-5 flex-grow">
+                                <h2 class="mb-2 text-2xl font-bold tracking-tight" :class="{ purple: Boolean}">{{titlePelicula}}</h2>
+                                <p class="mb-3 font-normal text-gray-400">Película clásica estadounidense de 1939, basada en el libro de L. Frank Baum. Narra las aventuras de Dorothy, una niña que es llevada por un tornado a la tierra de Oz, donde debe enfrentarse a la malvada bruja del Oeste y encontrar al poderoso mago que puede ayudarla a volver a casa. El mago de Oz es considerada una de las películas más influyentes y queridas de la historia del cine y destaca por su uso del color, sus canciones y sus efectos especiales. </p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="flex-1">
+                        <div class="flex flex-col justify-between max-w-sm min-h-full rounded-lg shadow bg-gray-800 border-gray-700">
+                            <a href="#">
+                                <img class="rounded-t-lg" :src="imgPelicula2" :alt="titlePelicula2">
+                            </a>
+                            <div class="p-5 flex-grow">
+                                <h2 class="mb-2 text-2xl font-bold tracking-tight text-white">{{titlePelicula2}}</h2>
+                                <p class="mb-3 font-normal text-gray-400" >Esta película sueca, dirigida por Ingmar Bergman, es una obra maestra del cine existencialista de 1957. Ambientada en la Edad Media, durante la peste negra. Cuenta la historia de un caballero que regresa de las Cruzadas y se encuentra con la Muerte, con la que juega una partida de ajedrez por su vida. El séptimo sello es una reflexión sobre el sentido de la vida, la fe, la muerte y el arte, y contiene escenas memorables como la danza macabra. </p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="flex-1">
+                        <div class="flex flex-col justify-between max-w-sm min-h-full rounded-lg shadow bg-gray-800 border-gray-700">
+                            <a href="#">
+                                <img class="rounded-t-lg" :src="imgPelicula3" :alt="titlePelicula3">
+                            </a>
+                            <div class="p-5 flex-grow">
+                                <h2 class="mb-2 text-2xl font-bold tracking-tight" :class="{ purple: Boolean}">{{titlePelicula3}}</h2>
+                                <p class="mb-3 font-normal text-gray-400">Por último, esta película española-mexicana de 2006, dirigida por Guillermo del Toro, es una fábula oscura que mezcla la realidad y la fantasía. Situada en el año 1944, en el contexto de la posguerra española, narra las peripecias de Ofelia, una niña que descubre un mundo mágico en el que debe cumplir tres pruebas para convertirse en la princesa de un reino subterráneo. El laberinto del fauno es una película que explora temas como la inocencia, la crueldad, el sacrificio y la rebelión y que cuenta con un diseño visual impresionante y una banda sonora emotiva. </p>
+                            </div>
+                        </div>
+                    </li>
+                </ol>
+            </div>
+        </article>
+    </main>
+    <script src="app.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.js"></script>
+</body>
+</html>

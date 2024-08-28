@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8" />
+	<title>Pendientes</title>
+
+	<script src="scripts/vue3.js"></script>
+	
+	<style>
+	body{font:20px/25px verdana}
+		[v-cloak] { display: none;}
+		ul{list-style: none;}
+		ul li span{width:400px;display: inline-block}
+		.classBien{height: 35px; visibility: hidden}
+		.classError{color:red; height: 35px;}
+		input{width: 200px;}
+		.pendientes{color:red;cursor: pointer;}
+		.terminadas{background-color:green;color:white;cursor: pointer;}
+		
+
+	</style>
+</head>
+
+<body>
+	<div class="contenedor" v-cloak>
+	<h1>Tareas Pendientes</h1>
+	<div>
+		<form v-on:submit.prevent>
+		<input type ="text" v-model="mensaje" @keyup.enter="agregar" />
+		
+	</form>
+	<div :class="verificar ? 'classBien' : 'classError'">
+		<p>No puede quedar vacío</p> 
+	</div>
+			
+	<ul> 
+		<li v-for="(item, index) in lista" :key="index" :class="item.cssa" >
+			<span @click="toggle(index)">{{item.mensaje}}, indice: {{index}}</span>
+ 			<button @click="borrar(index)">Borrar</button>
+ 		</li>
+
+	</ul>
+			<p> Datos Ingresados: {{total}}</p>
+			<p> Terminadas : {{sumarTerminadas}}</p>
+
+			
+	</div>
+</div>
+
+	<script src="scripts/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8" />
+	<title>Ejemplos Directivas</title>
+	<style>
+		.unaClaseSinVue{
+			font-size: 1.2em;
+			padding:1em;
+		}
+		.redClass{
+			background:red;
+			color: white;
+			width: fit-content;
+			margin-inline: auto;
+			border: 2px solid black;
+		}
+		[v-cloak] { 
+			display: none;
+		}
+		.centrado{
+			text-align: center;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="app" v-cloak>
+		<h1>{{mensaje}}</h1>
+
+		<p v-once>{{bienvenida}}</p>
+
+		<p v-show="visible">Esto se verá si la variable "visible" posee valor true</p>
+
+		<div class="centrado">
+			<img :src="imagen" :alt="descripcion" >
+		</div>
+
+		<div class="unaClaseSinVue" v-bind:class="{ redClass: booleano }" >
+			<p>El contenido de este div tendrá background colo rojo, porque la variable es true y vue le agrega la clase redClass</p>
+			<p>El texto no mostrará la clase redClass si la variable es false pero si muestra la clase estática que presenta desde css en el html, sin que intervenga Vue</p>
+		</div>
+		<h2 :style="{ color: colorEncabezado, fontSize: tamanioFuente + 'px', fontStyle: italica }">Encabezado con style desde Vue</h2>
+
+		<h3 :style="{ 'background-color': backgroundColor }">Soy un h3 con fondo naranja</h3>
+		<p v-html="dato"></p>
+		<p v-pre>Esto no lo procesa Vue: {{bienvenida}}</p>
+	</div>
+
+
+<p>{{mensaje}}</p>
+
+	<script src="scripts/vue3.js"></script>
+	<script src="scripts/app_.js"></script>
+</body>
+</html>

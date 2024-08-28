@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8" />
+	<title>Ejemplos</title>
+
+	<style>
+		[v-cloak] { display: none;}
+		ul li span{width:200px;display: inline-block}
+		input{width: 200px;}
+	</style>
+</head>
+
+<body>
+	<div class="contenedor" v-cloak>
+	<h1>Listado de Tareas</h1>
+
+	<div>
+		<form v-on:submit.prevent>
+			<input type ="text" v-model="mensaje" @keyup.enter="agregar"/>
+		</form>
+			
+		<p>{{ mensaje }}</p>
+	<ul> 
+		<li v-for="(x, index) in lista">
+			<span>{{x}} --> {{index}} </span>
+			<button v-on:click="borrar(index)">Borrar</button>
+		</li>
+	</ul>
+	
+
+	</div>
+
+</div>
+
+	<script src="scripts/vue3.js"></script>
+	<script src="scripts/app_.js"></script>
+</body>
+</html>

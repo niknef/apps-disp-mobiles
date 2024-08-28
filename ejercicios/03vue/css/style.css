@@ -1,0 +1,24 @@
+/* CSS Reset */
+
+[v-cloak]{
+    display: none;
+}
+
+
+.custom-form {
+    background-color: #ffffff;
+    opacity: .9;
+    border-radius: 8px;
+    padding: 20px;
+    max-width: 400px;
+    margin: 20px auto;
+}
+.custom-form label {
+    margin-top: 10px;
+    font-weight: bold;
+    opacity: .85;
+}
+
+.pointer{
+    cursor: pointer;
+}

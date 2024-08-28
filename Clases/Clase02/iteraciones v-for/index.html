@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="UTF-8" />
+		<title>Iteraciones</title>
+		
+		<style>
+			body{font-family:verdana;}
+			.red{color:red;}
+			.green{color:green;}
+			.malClass{text-decoration:line-through;}
+			.errorClass{background:red;color:white}
+			[v-cloak] { display: none;}
+			img{display:block;padding: 1em;}
+			li span{color: red}
+			ul:nth-of-type(2){display: flex;}
+			li{width:770px;}
+			.indice li{width:430px;}
+
+			  .tarea-completada {
+    			text-decoration: line-through;
+    			color: green;
+  				}
+
+  				.tarea-pendiente {
+    			font-weight: bold;
+    			color: red;
+  				}
+			
+		</style>
+	</head>
+	<body>
+		<div class="contenedor" v-cloak>
+			
+		<div>
+			<h1>Iterar estructuras</h1>
+			<h2>Iterando Arrays</h2>
+				
+				<ul>
+					<li v-for="x in peliculas">
+						<p>{{x}}</p>
+					</li>
+				</ul>
+			<h2>Iterando Arrays de Objetos</h2>
+			
+				<ul>
+					<li v-for="item in juegos">
+						Nombre = <span>{{item.nombre}}</span>,
+						Lanzamiento = <span>{{item.anio}}</span>, 
+						
+						<img v-bind:src="item.portada" v-bind:alt="item.alt"/>
+					</li>
+				</ul>
+				<ul class="indice">
+					<li v-for="(item, index) of juegos">Indice: {{index + 30}}, {{item.nombre}} : {{item.anio}}</li>
+				</ul>
+
+		  <h2>Mostrar valores de un object</h2>
+
+				<ul>
+					<li v-for="x of obj">{{x}} </li>
+				</ul>
+
+			<h2>Mostrar clave y valor de un object</h2>
+
+				<ul>
+					<li v-for="(value, prop) of obj">{{prop}} {{value}}  </li>
+				</ul>
+
+
+			<h2>Mostrar clave, valor e indice de un object</h2>
+				
+				<ul>
+					<li v-for="(value,prop, indice) of obj"> -{{prop}}: {{value}} --- {{indice}}</li>
+				</ul>
+
+			<h2>Atributo key</h2>
+				
+				<ul>
+					<li v-for="item in lista" :key="item.id" > {{item.tarea}} 
+				</ul>
+
+			<h2>Iteración con condicional</h2>
+				
+				<ul>
+					 <template v-for="item in lista" :key="item.id">
+						<li v-if="!item.estado"> {{ item.tarea }}</li>
+					</template>
+				</ul>	
+			<h2>Iteración y estilos Css</h2>
+			<ul>
+      <li v-for="tarea in lista" :key="tarea.id" v-bind:class="{ 'tarea-completada': tarea.estado, 'tarea-pendiente': !tarea.estado }">
+        {{ tarea.tarea }}
+      </li>
+    </ul>
+
+			<h2>Iterar Datos Complejos con array </h2>
+
+					<ul>
+						<li v-for="item in listaDeTareas" :key="item.id"> 
+       						{{item.tarea}} :
+					<span v-for="x in item.detalles"> 
+             				Detalles: {{x}} -
+          			</span>					
+   						</li>
+					</ul>
+
+			<h2>Iterar Datos Complejos con objetos </h2>
+
+				<ul>
+					<li v-for="item in tareasConElementos" :key="item.id" > {{item.tarea}}
+					<p v-for="elemento in item.elementos "> {{elemento.nombre}} --{{elemento.cantidad}}--- {{elemento.tamanio}}</p>
+				</ul>
+
+
+				
+			</div>
+		</div>
+		
+		<script src="scripts/vue3.js"></script>
+		<script src="scripts/app.js"></script>
+		
+	</body>
+</html>
