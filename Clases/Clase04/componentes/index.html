@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8" />
+	<title>Ejemplos</title>
+
+	<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+	
+	
+	<style>
+		[v-cloak] { display: none;}
+		button{margin: 10px;}
+	</style>
+</head>
+
+<body>
+	<div class="contenedor" v-cloak>
+		
+		<h1>{{titulo}}</h1>
+		
+		<mi-componente></mi-componente>
+
+		<otro-componente></otro-componente>
+
+		
+
+		<btn-contador></btn-contador>
+
+		<btn-contador></btn-contador>
+		
+	</div>
+
+
+
+	<script src="scripts/app.js"></script>
+	
+</html>
