@@ -10,9 +10,13 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
 <body class="bg-dark">
+    <!--Montamos la app-->
     <main id="app" v-cloak>
+        <!-- Usamos la interpolacion para el titulo-->
         <h1 class="text-white text-center mt-2">{{ titulo }}</h1>
+        <!-- usamos el submit prevent para evitar el funcionamiento normal del form y llamamos al metodo guardar para cuanto hagamos el submit-->
         <form @submit.prevent="guardar" class="custom-form">
+        <!--Pasamos los datos que querramos por form-->
         <label for="nombre">Nombre:</label>
         <input type="text" id="nombre" v-model="nombre" class="form-control" required>
 
@@ -24,12 +28,17 @@
 
         <button class="btn btn-info mt-3">Guardar</button>
     </form>
+    <!--Vamos a mostrar la lista de juegos-->
     <section class="d-flex justify-content-center">
         <ul class="list-group my-4">
+            <!-- Hacemos un v-for para recorrer nuestro array juegos-->
             <li v-for="(item, index) in juegos" :key="index" class="list-group-item juego text-white bg-dark">
+                <!-- Si le damos click al span llamamos al metodo favorito y le pasamos el index del que estmaos tocadno, esto nos va a permitir iterar el booleano de clss para mostrar por ternario una clase diferente-->
                 <span @click="favorito(index)" :class=" item.class ? 'text-info' : 'text-white' " class="pointer"><i :class=" item.class ? 'bi bi-heart-fill me-1' : 'bi bi-heartbreak-fill me-1' "></i>
+                    <!-- Mediante interpolaciones mostramos los valores de los juegos y usamos nuestro filtro para poner los string en mayuscula-->
                     {{ toUpperCase(item.nombre) }} - {{ item.anio }} - {{ toUpperCase(item.categoria) }} <i @click="borrar(index)" class="bi bi-trash ms-1"></i>
                 </span>
+                    <!-- al final de todo tenemos un icono de una papelera con una funcion que cuando le damos click llamamos al metodo borrar, y le pasamos el index del elemento para poder borrar el juego que querramos-->
             </li>
         </ul>
     </section>
