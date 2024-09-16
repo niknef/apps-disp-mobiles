@@ -1,0 +1,24 @@
+body{font-family:verdana;}
+*{box-sizing: border-box;}
+.contenedor{margin:auto; width:1000px;}
+h1, h2{text-align: center;}
+form{margin:auto;width: 800px;background:#FFA07A;border-radius:5px; border: solid 1px grey;}
+button{background:DodgerBlue;color:white; border:none;width:250px;padding:10px; margin:20px; }
+.ver{ padding:30px;}
+
+label, input[type="text"], input[type="number"], textarea,select{
+	width:700px;display:inline-block;margin:5px 20px; color:black;text-align: left;padding: 1em; }
+label{color:white;padding-top:10px;}
+textarea{resize:none;}
+input[type="text"]{color:grey;}
+input[type="submit"]{background:DodgerBlue;color:white; border:none;width:250px;padding:10px;display: block; margin:20px auto;}
+.ver{ padding:30px;}
+select{margin:10px 20px;padding-top: 0px;}
+li{list-style: none; padding:15px;color:#43a047;width: 780px;margin-left: 40px; }
+ul{margin:0;}
+
+.classerror{background:#ef5350;color:white;width: 800px; margin:0 auto;border-radius: 5px;border: solid 1px #ef5350;}
+.classerror li, .classerror p{color:white;border:none;padding:10px;}
+.classerror p{text-align: center;}
+.enviado{border:solid 1px green; background:#43a047; border-radius:5px;width: 800px;color:white; font-weight: bold;text-align: center;margin:auto;padding:20px; }
+:focus{outline:white 1px solid;}

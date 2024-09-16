@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8" />
+	<title>Condicionales</title>
+
+	<link rel="stylesheet" href="css/estilo.css">
+	<!--<style>
+		.oferta {
+    color: green;
+    font-weight: bold;
+    border: solid 1px green;
+  }
+  .normal{
+  	background: grey;
+  	font-weight: bold;
+  }
+  .precio-regular{color: blue}
+  .descuento-aplicado{background:pink;}
+
+ .calificacion {
+ 	background: url(img/estrella.png) no-repeat;
+ 	}
+ .calificacion_mala{
+ 	background: url(img/borde_estrella.png) no-repeat;
+ 
+ }
+ .calificacion,.calificacion_mala{background-position:120px ;
+ 	padding-left: 35px;}
+
+h1, h2{text-align: center;}
+h2 {font-size:1.1em; }
+
+ div p:nth-last-of-type(-n+2){
+ 	text-align: center;
+ }
+ div p:first-of-type{font-weight: bold;}
+ div p:nth-of-type(-n+2){
+ 	color: grey; padding-left:10px;
+ }
+ 
+ img{
+ 	display: block;
+ 	margin: 20px 0;
+ }
+ span{
+ 	padding: 9px; 
+ 	margin:5px; 
+ 	border-radius: 5px;
+ 	background: goldenrod;
+ 	color: whitesmoke;
+ }
+ul{display: flex;
+	list-style: none;
+	flex-wrap: 
+	wrap;gap: 1em;
+	justify-content:center;
+}
+li{
+	border-radius:7px;
+	box-shadow:0 -1px 4px grey, 0 2px 4px grey;
+}
+
+</style>-->
+</head>
+
+<body>
+	<div class="contenedor" v-cloak>
+		
+	<!--	<ul>
+			  <li v-for="producto in productos" :key="producto.nombre">
+        <div :class="{ 'oferta': producto.enOferta, 'precio-regular': !producto.enOferta, 'descuento-aplicado': producto.precio > 30000 }">
+          {{ producto.nombre }} - {{ producto.categoria }} - ${{ producto.precio }}
+       
+        <p v-if="producto.enOferta">¡Oferta especial!</p>
+        <p v-else-if="producto.precio > 30000">¡Descuento aplicado!</p>
+        <p v-else>¡Precio regular!</p>
+      </div>
+  </ul>-->
+ <h1>Ranking de la Comunidad</h1>
+ <p>En base a las votaciones de nuestra comunidad te presentamos las recomendaciones que tenes que tener en cuenta si querés un finde de relax</p>
+  		<ul>
+			  <li v-for="item in peliculas" :key="item.titulo">
+        <div>
+        <h2>{{ item.titulo }} </h2>
+        <p>Estreno : {{ item.estreno }}</p>
+        <p>Director: {{ item.director }}</p>
+        
+          <span v-for="i in item.genero">{{ i }}</span>
+       	
+       		<img :src="item.portada" alt="portada" >
+	       	
+	       	<p :class="{ 'calificacion': item.calificacion >= 7, 'calificacion_mala': item.calificacion <=6}">{{item.calificacion}}</p>
+	        <p v-if="item.calificacion >= 7"> Recomendada!</p>
+	        <p v-else-if="item.calificacion <=6">Baja Calificacion</p>
+	        <p v-else>Sin Calificar</p>
+      </div>
+    </li>
+  </ul>
+
+	</div>
+
+
+
+	<script src="scripts/vue3.js"></script>
+	<script src="scripts/app_.js"></script>
+</body>
+</html>

@@ -1,0 +1,60 @@
+.calificacion {
+    background: url(../img/estrella.png) no-repeat;
+}
+
+.calificacion_mala {
+    background: url(../img/borde_estrella.png) no-repeat;
+}
+
+.calificacion,
+.calificacion_mala {
+    background-position: 120px;
+    padding-left: 35px;
+}
+
+h1,
+h2 {
+    text-align: center;
+}
+
+h2 {
+    font-size: 1.1em;
+}
+div p:first-of-type {
+    font-weight: bold;
+}
+
+div p:nth-of-type(-n+2) {
+    color: grey;
+    padding-left: 10px;
+}
+
+div p:nth-last-of-type(-n+2) {
+    text-align: center;
+}
+
+img {
+    display: block;
+    margin: 20px 0;
+}
+
+span {
+    padding: 9px;
+    margin: 5px;
+    border-radius: 5px;
+    background: goldenrod;
+    color: whitesmoke;
+}
+
+ul {
+    display: flex;
+    list-style: none;
+    flex-wrap:wrap;
+    gap: 1em;
+    justify-content: center;
+}
+
+li {
+    border-radius: 7px;
+    box-shadow: 0 -1px 4px grey, 0 2px 4px grey;
+}

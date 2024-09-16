@@ -1,0 +1,25 @@
+.contenedor{
+	width: 900px;margin: auto;
+}
+.form{
+	width:500px;background:lightsteelblue;
+	font-family:verdana;font-size:20px;
+	text-shadow: 2px 3px 5px grey;
+	color:white;margin: auto;
+}
+form{width:500px;padding: 10px;}
+label, input[type="text"], input[type="number"], textarea,span{
+	width:300px;display:inline-block;
+	padding:10px;margin:10px 20px;
+}
+p{width: 300px;word-wrap: break-word;}
+input[type="text"]{
+	color:grey
+}
+input[type="submit"]{
+	width:220px;display:inline-block;
+	padding:5px;margin:30px 20px;
+}
+select{width: 200px; margin:30px 20px}
+
+[v-cloak] { display: none;}
