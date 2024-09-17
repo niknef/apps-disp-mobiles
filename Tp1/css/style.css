@@ -24,17 +24,12 @@
     filter: drop-shadow(0 0 25px rgba(230, 176, 77, 0.534));
 }
 
-/* Visibilidad de modal */
-.visible {
-    display: flex;
-    opacity: 1;
-    transition: opacity 0.3s ease-in-out;
+.borde-rojo {
+    border: 2px solid #e60000;
 }
 
-.noVisible {
-    display: none;
-    opacity: 0;
-    transition: opacity 0.3s ease-in-out;
+.borde-marron{
+    border: 2px solid #F2B366;
 }
 
 .container {
