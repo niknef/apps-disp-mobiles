@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>LocalStorage Complejo</title>
+</head>
+<style>
+	body{font-family:verdana;}
+		.form-data{width: 800px;background:LightYellow;margin:0 auto;text-align: center}
+		button{background:DodgerBlue;color:white; border:none;width: 150px;padding:10px;margin:20px 0 30px}
+		input{padding:8px;margin-left:10px;}
+		.mostrar{
+			padding:30px;}
+		.form-data div{padding:15px;}
+</style>
+	<script src="script.js"></script>
+
+<body>
+
+<div class="form-data">
+<h1>LocalStorage</h1>
+
+<form>
+	<div>
+		<label>Nombre</label>
+			<input type="text" id="nombre"/> 
+	</div>
+	<div>
+		<label>Apellido</label>
+			<input type="text" id="apellido"/> 
+	</div>
+	<div>
+		<label>Telefono</label>
+			<input type="number" id="telefono"/> 
+	</div>
+		<button type="button" onclick="enviar()">Enviar</button>
+
+
+</form>
+
+
+<h2>Datos desde LocalStorage</h2>
+<div id="mostrar">
+
+</div>
+
+</div>
+
+
+
+</body>
+
+
+</html>

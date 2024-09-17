@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8" />
+	<title>Ejemplos</title>
+
+	<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+	
+	<style>
+		[v-cloak] { display: none;}
+		body{font-family:verdana;}
+		.form-data{width: 800px;background:LightYellow;margin:0 auto;text-align: center}
+		button{background:DodgerBlue;color:white; border:none;width: 150px;padding:10px;margin:20px 0 30px 0}
+		input{padding:8px;margin-left:10px;}
+		.ver{ padding:30px;}
+		.form-data div{padding:15px;}
+		h1{text-align: center;}
+	</style>
+</head>
+
+<body>
+	<div class="contenedor" v-cloak>
+		<h1>{{titulo}}</h1>
+		
+		<form-dato></form-dato>
+		
+ 
+	</div>
+
+	<script src="scripts/app.js"></script>
+</body>
+</html>

@@ -4,7 +4,7 @@ const app = Vue.createApp({
       modalvisible: false,
       completed: false,
       preferenciaseleccionada: false,
-      alerta: "¡Gracias por suscribirte!",
+     
       
     };
   },
@@ -17,18 +17,9 @@ const app = Vue.createApp({
       this.completed = false;
     },
     abrirModalGracias() {
-      this.getSuscritos(); // Obtener datos del último suscriptor antes de abrir el modal
       this.completed = true;
       this.preferenciaseleccionada = true;
-    },
-    getSuscritos() {
-      const suscripciones = localStorage.getItem("suscripciones");
-      if (suscripciones) {
-          const arr = JSON.parse(suscripciones);
-          this.usuario = arr[arr.length - 1];
-          
     }
-  },
   },
 });
 
@@ -371,6 +362,9 @@ data() {
         errores: [],
         arr: [],
         enviado: false,
+        completado: false,
+        alerta: "¡Gracias por suscribirte!",
+        
         
     };
 },
@@ -384,7 +378,7 @@ template: `
                     <button type="button" class="btn-close" @click="closeModal"><i class="bi bi-x-square"></i></button>
                 </div>
             
-            <div class="modal-body">
+            <div v-if="!completado" class="modal-body">
                 <form @submit.prevent="guardar" novalidate>
                     <div class="row mb-3">
                     <div class="col">
@@ -435,21 +429,21 @@ template: `
                     </ul>
                 </div>
                 </div>
+                <modal-gracias v-if="completado" :usuario="arr[arr.length - 1]" :alerta="alerta"></modal-gracias>
             </div>
             </div>
         </div>
         
     `,
-    emits: ["close-modal", "toggle-modal", "abrir-modal-gracias"],
+    emits: ["close-modal"],
 
     methods: {
       closeModal() {
-          this.$emit("close-modal");
+        this.$emit("close-modal");
       },
-      guardar() {
-          this.errores = [];
+      guardar(form) {
           this.enviado = true;
-  
+          this.errores = [];
           // Validaciones
           if (!this.form.nombre) {
               this.errores.push("El nombre es obligatorio.");
@@ -472,18 +466,22 @@ template: `
   
           // Si no hay errores, procedemos a guardar los datos
           if (this.errores.length === 0) {
-              this.$emit("toggle-modal");
-              this.$emit("abrir-modal-gracias");
+              this.completado = true;
+
+              var localData = localStorage.getItem("local");
+              this.arr = localData ? JSON.parse(localData) : [];
               
-              localStorage.setItem('preferenciasCafe', this.form.preferenciasCafe);
-              // Agregar el formulario al array
-              this.arr.push({ ...this.form });
-  
-              // Guardar los datos en localStorage
-              localStorage.setItem("suscripciones", JSON.stringify(this.arr));
-  
-              console.log("Se añadió un nuevo usuario: " + JSON.stringify(this.arr));
-  
+              this.arr.push({
+                  nombre: this.form.nombre,
+                  apellido: this.form.apellido,
+                  email: this.form.email,
+                  subscription: this.form.subscription,
+                  preferenciasCafe: this.form.preferenciasCafe,
+                  notas: this.form.notas,
+              });
+              
+              localStorage.setItem("local", JSON.stringify(this.arr));
+              
               // Limpio el formulario
               this.form = {
                   nombre: "",
@@ -499,40 +497,23 @@ template: `
 });
 
 app.component('modal-gracias', {
-  data: function() {
-      return {
-          usr: {} // Aquí se guardarán los datos del usuario 
-      }
-  },
-  props: ['completed', 'alerta', 'usuario'],
+  props: ["usuario", "alerta"],
   template: `
-      <div :class="[completed ? 'visible' : 'visually-hidden']" class="modal-backdrop">
-          <div class="modal-dialog">
-              <div class="modal-content bg-body-tertiary rounded p-4">
-                  <div class="modal-header d-flex justify-content-between mb-3">
-                      <h2 class="modal-title fs-5 fw-bold me-4" id="exampleModalLabel">Bienvenido/a {{ toCapitalized(usuario.nombre) }} {{ toCapitalized(usuario.apellido) }}</h2>
-                      <button type="button" class="btn-close" @click="closeModal" aria-label="Close"><i class="bi bi-x-square"></i></button>
-                  </div>
-                  <div class="modal-body text-center content-modal-gracias">
-                      <div class="bienvenido mx-auto my-2"></div>
-                      <h3 class="fw-bold">{{ alerta }}</h3> 
-                      <h4 class="fw-bold">Pack {{ toCapitalized(usuario.subscription) }}</h4> 
-                      <p class="fw-regular">Recibirás un correo de confirmación al mail:<span class="fw-light"> {{ toCapitalized(usuario.email) }}</span></p> 
-                      <p class="fw-regular">¡Gracias por formar parte de nuestra comunidad de amantes por el café, en nuestra página encontrarás una recomendación especial para ti!</p>
-                  </div> 
-              </div>
-          </div>
-      </div>
+      <div class="modal-body text-center content-modal-gracias">
+      <div class="bienvenido mx-auto my-2"></div>
+      <h2 class="fw-bold">Bienvenido/a {{toCapitalized(usuario.nombre)}}</h2>
+      <h3 class="fw-bold">{{ alerta }}</h3> 
+      <h4 class="fw-bold">Pack {{ toCapitalized(usuario.subscription) }}</h4> 
+      <p class="fw-regular">Recibirás un correo de confirmación al mail:<span class="fw-light"> {{ usuario.email }}</span></p> 
+      <p class="fw-regular">¡Gracias por formar parte de nuestra comunidad de amantes por el café, en nuestra página encontrarás una recomendación especial para ti!</p>
+      
+    </div>
   `,
-  emits: ["close-modal"],
   methods: {
-      closeModal() {
-          this.$emit('close-modal');
-      },
-      toCapitalized(text) {
-        if (!text) return ''; // para evitar error si no se pasa un texto
-        text = text.toLowerCase(); // primero convertimos el string a minusculas
-        return text.charAt(0).toUpperCase() + text.slice(1); // Convertimos la primera letra a mayúscula y concatenamos el resto del string
+    toCapitalized(text) {
+      if (!text) return '';
+      text = text.toLowerCase();
+      return text.charAt(0).toUpperCase() + text.slice(1);
     }
   }
 });

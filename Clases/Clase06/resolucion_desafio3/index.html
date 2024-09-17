@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8" />
+	<title>Juegos</title>
+
+	<script src="scripts/vue3.js"></script>
+	<link rel="stylesheet" href="css/estilo.css">
+	
+</head>
+
+<body>
+	<div class="contenedor" v-cloak>
+	<nav>
+		<ul>
+			<li v-for="x in menu">
+				<a href="#" v-bind:class="x.clase">{{x.link}}</a></li>
+		</ul>
+	</nav>
+	
+	<div>
+	<h1>Juegos Retro</h1>
+
+		<form v-on:submit.prevent="guardar">
+		<input type ="text" v-model="jueguito" />
+		<div v-if="verificar == false">
+			<p>{{error}}</p>
+		</div>
+		<button>Guardar</button>
+	</form>
+	<ul>
+		<template v-for="(item,index) in games" :key="index" class="juego">
+		<li v-if="item.anio < 2020">
+			<p :class="item.clase" @click="preferido(index)">{{item.nombre}} : {{item.anio}} </p>
+			<p v-for="x in item.consola">{{x}}</p> 
+		</li>
+		</template>
+	</ul>
+			
+
+	</div>
+
+</div>
+	
+
+			
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+	<script src="scripts/app.js"></script>
+</body>
+</html>

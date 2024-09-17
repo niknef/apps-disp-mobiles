@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>Formularios simples </title>
+</head>
+<style>
+
+body{font-family:verdana;}
+		.form-data{width: 800px;background:LightYellow;margin:0 auto;text-align: center}
+		button{background:DodgerBlue;color:white; border:none;width: 150px;padding:10px;margin:20px 0 30px}
+		input{padding:8px;margin-left:10px;}
+		.mostrar{
+			padding:30px;}
+		.form-data div{padding:15px;}
+
+</style>
+	<script src="script.js"></script>
+
+<body>
+
+<div class="form-data">
+<h1>LocalStorage</h1>
+	<form>
+		<div>
+			<label>Nombre: </label>
+				<input type="text" id="nombre"/> 
+			
+			<button type="button" id="guardar" onclick="enviar_nombre()">Guardar</button>
+		</div>
+	</form>
+<div id="mostrar">
+	
+</div>
+</div>
+
+</body>
+</html>
