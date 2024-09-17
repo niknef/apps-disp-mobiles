@@ -1,5 +1,5 @@
 const app = Vue.createApp({
-  data() {
+  data: function () {
     return {
       modalvisible: false,
       completed: false,
@@ -16,6 +16,19 @@ const app = Vue.createApp({
       this.modalvisible = false;
       this.completed = false;
     },
+    abrirModalGracias() {
+      this.getSuscritos(); // Obtener datos del último suscriptor antes de abrir el modal
+      this.completed = true;
+      this.preferenciaseleccionada = true;
+    },
+    getSuscritos() {
+      const suscripciones = localStorage.getItem("suscripciones");
+      if (suscripciones) {
+          const arr = JSON.parse(suscripciones);
+          this.usuario = arr[arr.length - 1];
+          
+    }
+  },
   },
 });
 
@@ -287,6 +300,8 @@ app.component("coffees-component", {
             "Un café limpio y brillante con acidez viva y notas de cítricos y cacao. Es muy equilibrado y agradable para cualquier momento del día.",
         },
       ],
+      selectedIntensity: localStorage.getItem("preferenciasCafe") || null,
+      filteredCoffees: [],
     };
   },
   template: `
@@ -298,18 +313,24 @@ app.component("coffees-component", {
             <div v-for="(coffee, index) in coffees" :key="index" class="col">
                 <div class="card h-100 text-center rounded overflow-hidden">
                     <div class="card-body">
-                        <h2 class="card-title display-5 fs-2">{{ coffee.name }}</h2>
-                        <p class="lead fw-bold">{{ coffee.nacionalidad }}</p>
-                        <p class="lead">{{ coffee.descripcion }}</p>
+                        <h2 class="card-title display-5 fs-2">{{ filteredCoffees.name }}</h2>
+                        <p class="lead fw-bold">{{ filteredCoffees.nacionalidad }}</p>
+                        <p class="lead">{{ filteredCoffees.descripcion }}</p>
                     </div>
                     <div class="bg-body shadow-sm mx-auto">
-                    <img :src="coffee.img" :alt="coffee.name" class="img-fluid drop-shadow" width="300px">
+                    <img :src="filteredCoffees.img" :alt="filteredCoffees.name" class="img-fluid drop-shadow" width="300px">
                     </div>
                 </div>
             </div>
         </div>
     </div>
     `,
+    methods: {
+      filteredCoffees() {
+        this.filteredCoffees = this.coffees.filter(coffee => coffee.intensidad.toLowerCase() === this.selectedIntensity.toLowerCase());
+        return this.filteredCoffees;
+      },
+    },
 });
 
 //Componente del divider
@@ -353,7 +374,7 @@ data() {
         
     };
 },
-props: ["modalvisible"],
+props: ["modalvisible" ],
 template: `
     <div class="modal-backdrop" v-if="modalvisible">
         <div class="modal-dialog">
@@ -419,79 +440,101 @@ template: `
         </div>
         
     `,
-    emits: ["close-modal", "completed", "toggle-modal"],
+    emits: ["close-modal", "toggle-modal", "abrir-modal-gracias"],
 
-methods: {
-    closeModal() {
-        this.$emit("close-modal");
-    },
-    guardar() {
-        this.errores = [];
-        this.enviado = true;
-
-        if (!this.form.nombre) {
-            this.errores.push("El nombre es obligatorio.");
-        } 
-
-        if(this.form.nombre && this.form.nombre.length < 3) {
-            this.errores.push("El nombre debe tener al menos 3 caracteres.");
-        }
-        
-        if (!this.form.apellido) {
-            this.errores.push("El apellido es obligatorio.");
-        }
-        
-        if (!this.form.email) {
-            this.errores.push("El email es obligatorio.");
-        }
-
-        if (!this.form.subscription) {
-            this.errores.push("Debes elegir una opción de suscripción.");
-        }
-    
-        if (!this.form.preferenciasCafe) {
-            this.errores.push("Selecciona tus preferencias de café.");
-        }
-
-        if (this.errores.length === 0) {
-            this.$emit("completed", true);
-            this.$emit("toggle-modal");
-            this.arr.push({ ...this.form });
-            console.log("Se añadio un nuevo usuario: " + this.arr);
-        }
-    },
-},
+    methods: {
+      closeModal() {
+          this.$emit("close-modal");
+      },
+      guardar() {
+          this.errores = [];
+          this.enviado = true;
+  
+          // Validaciones
+          if (!this.form.nombre) {
+              this.errores.push("El nombre es obligatorio.");
+          } 
+          if (this.form.nombre && this.form.nombre.length < 3) {
+              this.errores.push("El nombre debe tener al menos 3 caracteres.");
+          }
+          if (!this.form.apellido) {
+              this.errores.push("El apellido es obligatorio.");
+          }
+          if (!this.form.email) {
+              this.errores.push("El email es obligatorio.");
+          }
+          if (!this.form.subscription) {
+              this.errores.push("Debes elegir una opción de suscripción.");
+          }
+          if (!this.form.preferenciasCafe) {
+              this.errores.push("Selecciona tus preferencias de café.");
+          }
+  
+          // Si no hay errores, procedemos a guardar los datos
+          if (this.errores.length === 0) {
+              this.$emit("toggle-modal");
+              this.$emit("abrir-modal-gracias");
+              
+              localStorage.setItem('preferenciasCafe', this.form.preferenciasCafe);
+              // Agregar el formulario al array
+              this.arr.push({ ...this.form });
+  
+              // Guardar los datos en localStorage
+              localStorage.setItem("suscripciones", JSON.stringify(this.arr));
+  
+              console.log("Se añadió un nuevo usuario: " + JSON.stringify(this.arr));
+  
+              // Limpio el formulario
+              this.form = {
+                  nombre: "",
+                  apellido: "",
+                  email: "",
+                  subscription: "",
+                  preferenciasCafe: "",
+                  notas: "",
+              };
+          }
+      }
+  },
 });
 
 app.component('modal-gracias', {
-    props: ['completed', 'alerta'],
-    template: `
-        <div :class="[completed ? 'visible' : 'visually-hidden']" class="modal-backdrop">
-            <div class="modal-dialog">
-                <div class="modal-content bg-body-tertiary rounded p-4">
-                    <div class="modal-header d-flex justify-content-between mb-3">
-                        
-                        <h2 class="modal-title fs-5 fw-bold me-4" id="exampleModalLabel">Bienvenido/a</h2>
-                        
-                        <button type="button" class="btn-close" @click="closeModal" aria-label="Close"><i class="bi bi-x-square"></i></button>
-                    </div>
-                    <div class="modal-body text-center content-modal-gracias">
-                        <div class="bienvenido mx-auto my-2"></div>
-                        <h3 class="fw-bold"></h3>
-                        <h4 class="fw-bold">Pack = </h4>
-                        <p class="lead fw-bold">Recibirás un correo de confirmación con los detalles de tu suscripción al siguiente E-mail:</p>
-                        <p class="fw-bold">¡Gracias por formar parte de nuestra comunidad de amantes por el café, en nuestra página encontraras una recomendación especial para tí!</p>
-                    </div> 
-                </div>
-            </div>
-        </div>
-    `,
-    emits: ["close-modal"],
-    methods: {
-        closeModal() {
-            this.$emit('close-modal');
-        }
+  data: function() {
+      return {
+          usr: {} // Aquí se guardarán los datos del usuario 
+      }
+  },
+  props: ['completed', 'alerta', 'usuario'],
+  template: `
+      <div :class="[completed ? 'visible' : 'visually-hidden']" class="modal-backdrop">
+          <div class="modal-dialog">
+              <div class="modal-content bg-body-tertiary rounded p-4">
+                  <div class="modal-header d-flex justify-content-between mb-3">
+                      <h2 class="modal-title fs-5 fw-bold me-4" id="exampleModalLabel">Bienvenido/a {{ toCapitalized(usuario.nombre) }} {{ toCapitalized(usuario.apellido) }}</h2>
+                      <button type="button" class="btn-close" @click="closeModal" aria-label="Close"><i class="bi bi-x-square"></i></button>
+                  </div>
+                  <div class="modal-body text-center content-modal-gracias">
+                      <div class="bienvenido mx-auto my-2"></div>
+                      <h3 class="fw-bold">{{ alerta }}</h3> 
+                      <h4 class="fw-bold">Pack {{ toCapitalized(usuario.subscription) }}</h4> 
+                      <p class="fw-regular">Recibirás un correo de confirmación al mail:<span class="fw-light"> {{ toCapitalized(usuario.email) }}</span></p> 
+                      <p class="fw-regular">¡Gracias por formar parte de nuestra comunidad de amantes por el café, en nuestra página encontrarás una recomendación especial para ti!</p>
+                  </div> 
+              </div>
+          </div>
+      </div>
+  `,
+  emits: ["close-modal"],
+  methods: {
+      closeModal() {
+          this.$emit('close-modal');
+      },
+      toCapitalized(text) {
+        if (!text) return ''; // para evitar error si no se pasa un texto
+        text = text.toLowerCase(); // primero convertimos el string a minusculas
+        return text.charAt(0).toUpperCase() + text.slice(1); // Convertimos la primera letra a mayúscula y concatenamos el resto del string
     }
+  }
 });
 // Montamos la app
 app.mount(".app");

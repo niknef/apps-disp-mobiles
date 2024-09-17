@@ -15,12 +15,12 @@
         <navbar-component @toggle-modal="toggleModal"></navbar-component>
         <main>
             <banner-component @toggle-modal="toggleModal"></banner-component>
-            <modal-form :modalvisible="modalvisible" @close-modal="closeModal" @completed="completed = true" @toggle-modal="toggleModal"></modal-form>
-            <modal-gracias v-if="completed" :completed="completed" @close-modal="closeModal" ></modal-gracias>
+            <modal-form :modalvisible="modalvisible" @close-modal="closeModal" @toggle-modal="toggleModal" @abrir-modal-gracias="abrirModalGracias"></modal-form>
+            <modal-gracias v-if="completed" :completed="completed" @close-modal="closeModal" :usuario="usuario"></modal-gracias>
             <packs-component></packs-component>
             <nosotros-component></nosotros-component>
             <products-component></products-component>
-            <coffees-component></coffees-component>
+            <coffees-component v-if="preferenciaseleccionada"></coffees-component>
         </main>
         <footer-component></footer-component>
     </div>
