@@ -1,7 +1,7 @@
 const app = Vue.createApp({
   data: function () {
     return {
-      titulo: "PureEspresso",
+      titulo: "PuroEspresso",
       
     };
     
@@ -168,6 +168,7 @@ app.component('modal-gracias', {
         <h3 class="fw-bold text-light-coffee">{{ alerta }}</h3>
         <h4 class="fw-bold text-light-coffee">Pack {{ toCapitalized(usuario.subscription) }}</h4>
         <p class="fw-regular text-light-coffee">Recibirás un correo de confirmación al mail: <span class="fw-light">{{ usuario.email }}</span></p>
+        <p v-if="usuario.notas" class="fw-regular text-light-coffee">Notas adicionales: <span class="fw-light fst-italic">"{{ usuario.notas }}"</span></p>
         <p class="fw-regular text-light-coffee">¡Gracias por formar parte de nuestra comunidad de amantes del café! En nuestra página encontrarás una recomendación especial para ti.</p>
       </div>
       <coffees-component :preferencia="usuario.preferenciasCafe"></coffees-component>
@@ -427,14 +428,14 @@ app.component("products-component", {
         {
           name: "Cafetera Italiana",
           description:
-            "diseñada para capturar la esencia del espresso auténtico. Fácil de usar y elegante en su diseño, perfecta para los amantes del café, esta clásica cafetera de aluminio ofrece una experiencia de café robusta y rica, que despierta tus sentidos con cada sorbo.",
+            "Diseñada para capturar la esencia del espresso auténtico. Fácil de usar y elegante en su diseño, perfecta para los amantes del café, esta clásica cafetera de aluminio ofrece una experiencia de café robusta y rica, que despierta tus sentidos con cada sorbo.",
           imageUrl: "./img/cafetera-italiana.jpg",
           imageAlt: "Cafetera Italiana",
         },
         {
           name: "Prensa Francesa",
           description:
-            "prepara un café suave y rico en matices. Diseñada para resaltar los sabores naturales de los granos, esta elegante prensa no solo es perfecta para hacer café, sino que también se convierte en tu herramienta esencial para espumar la leche.",
+            "Prepara un café suave y rico en matices. Diseñada para resaltar los sabores naturales de los granos, esta elegante prensa no solo es perfecta para hacer café, sino que también se convierte en tu herramienta esencial para espumar la leche.",
           imageUrl: "./img/prensa-fransesa.jpg",
           imageAlt: "Prensa Francesa de vidrio",
         },
