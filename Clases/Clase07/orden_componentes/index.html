@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8" />
+	<title>Orden</title>
+	<link rel="stylesheet" href="css/estilos.css">
+
+</head>
+
+<body>
+
+	<div class="contenedor" v-cloak>
+	
+		<componente-navegacion></componente-navegacion>
+		
+		<h1>{{mensaje}}</h1>
+
+		<div class="estatico">
+			<p>Bienvenidos a mi aplicacion en Vue, esto es texto estático creado desde el index.html a los fines técnicos</p>
+			<p>Este sitio está más organizado y prolijo. Cada componente tiene su propio archivo, su propio template, su propia lógica y su propio ciclo de vida.</p>
+		</div>
+		
+	</div>
+	
+ 	<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+	<script src="scripts/componentes/componente-lista.js"></script>
+	<script src="scripts/componentes/componente-form.js"></script>
+	<script src="scripts/componentes/componente-navegacion.js"></script>
+	<script src="scripts/app.js"></script>
+</body>
+</html>

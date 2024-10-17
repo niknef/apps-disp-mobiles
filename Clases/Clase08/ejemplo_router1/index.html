@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<title>Enrutamiento</title>
+
+<style>
+.form{width:80%;font-family:verdana;font-size:20px;margin:0 auto;}
+form{width:350px;background:pink;text-shadow: 2px 3px 5px grey;color:white;margin:0 auto;}
+label, input[type="text"], input[type="number"], textarea{width:200px;display:inline-block;	padding:5px;margin:10px 20px;}
+input[type="text"]{color:grey}
+button{width:220px;display: inline-block;padding:5px;margin:30px 20px}
+select{width: 200px; margin:30px 20px}
+a{display:inline-block; width: 150px;padding:10px; color:black;text-decoration: none;}
+ul li{display: inline-block;text-align: center;}
+main{margin:40px auto;width: 80%;text-align: center;}
+nav{text-align: center;}
+
+.router-link-active {
+  color: white;
+  background:blue;
+}
+/*Transiciones*/
+.fade-enter {
+  opacity: 0;
+}
+
+.fade-enter-active {
+  transition: opacity 0.2s ease;
+}
+.fade-leave-active {
+  transition: opacity 0.2s ease;
+  opacity: 0;
+}
+</style>
+</head>
+<body>
+	
+<div class="contenedor">
+  <h1>Ejemplo Router</h1>
+
+   <strong>Current route path:</strong> {{ $route.fullPath }}
+<nav>
+  <ul>
+    <li><router-link to="/">Home</router-link></li>
+    <li><router-link to="/ingresar">Ingresar</router-link></li>
+    <li><router-link to="/ingresar/dato" >Ingresar Dato</router-link></li>
+    <li><router-link to="/ver">Ver </router-link></li>
+    <li><router-link to="/pepe">Otro vinculo sin setear</router-link></li>
+    <li><router-link to="/marta">Otro vinculo</router-link></li>
+  </ul>
+</nav>
+<main>
+ 
+ <router-view v-slot="{ Component }">
+  <transition name="fade" mode="out-in">
+    <component :is="Component" />
+  </transition>
+</router-view>
+</main>
+</div>
+
+
+
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script src="https://unpkg.com/vue-router@4.0.15/dist/vue-router.global.js"></script>
+  <script src="componentes/ingresar.js"></script>
+  <script src="componentes/mostrar.js"></script>
+  <script src="rutas.js"></script>
+	
+</body>
+</html>

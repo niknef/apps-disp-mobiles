@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8" />
+	<title>Hooks</title>
+
+	<style>
+		[v-cloak] { display: none;}
+	</style>
+</head>
+
+<body>
+	<div class="contenedor" v-cloak>
+	
+	<div>
+		<form v-on:submit.prevent>
+			<input type ="text" v-model="mensaje" @keyup.enter="agregar"/>
+		</form>
+			
+		<p>{{mensaje}}</p>
+	
+		
+	</div>
+	
+	<ul>
+		<li v-for="item in lista"> {{item}}</li>
+
+	</ul>
+
+</div>
+	<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+	<script src="scripts/app.js"></script>
+</body>
+</html>
